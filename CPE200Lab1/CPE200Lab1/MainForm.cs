@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace CPE200Lab1
@@ -18,6 +11,7 @@ namespace CPE200Lab1
         private bool isAfterEqual;
         private string firstOperand;
         private string operate;
+        private double MemoryNum;
 
         //Variable.for.calculatorEngine
         CalculatorEngine engine;
@@ -38,6 +32,7 @@ namespace CPE200Lab1
             InitializeComponent();
             engine = new CalculatorEngine();
             resetAll();
+            
         }
 
         private void btnNumber_Click(object sender, EventArgs e)
@@ -122,6 +117,16 @@ namespace CPE200Lab1
 
                         lblDisplay.Text = engine.calculate(operate, firstOperand, lblDisplay.Text);
                         operate = x;
+                        break;
+                    case "√":
+
+                        firstOperand = lblDisplay.Text;
+                        isAfterOperater = true;
+                        lblDisplay.Text = engine.calculate(operate, firstOperand, lblDisplay.Text);
+                        break;
+
+                        
+                    case "1/x":
                         break;
                 }
                 isAllowBack = false;
@@ -236,6 +241,20 @@ namespace CPE200Lab1
         private void button1_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void memory_click(object sender, EventArgs e)
+        {
+            string Memory = ((Button)sender).Text;
+            double Num = (Convert.ToDouble(lblDisplay.Text));
+            switch (Memory) 
+            {
+                case "M+": MemoryNum += Num; isAfterOperater = true; break;
+                case "M-": MemoryNum -= Num; isAfterOperater = true; break;
+                case "MC": lblDisplay.Text = MemoryNum.ToString(); Num = 0; isAfterOperater = true; break;
+                case "MS": MemoryNum = (Convert.ToDouble(lblDisplay.Text)); isAfterOperater = true; break;
+                case "MR": lblDisplay.Text = MemoryNum.ToString(); isAfterOperater = true; break;
+            }
         }
     }
 }
