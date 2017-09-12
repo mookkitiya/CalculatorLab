@@ -8,15 +8,16 @@ namespace CPE200Lab1
 {
     class CalculatorEngine
     {
-        private bool isNumber(string str)
+        public bool isNumber(string str)
         {
             double retNum;
             return Double.TryParse(str, out retNum);
         }
 
-        private bool isOperator(string str)
+        public bool isOperator(string str)
         {
-            switch(str) {
+            switch (str)
+            {
                 case "+":
                 case "-":
                 case "X":
@@ -26,19 +27,25 @@ namespace CPE200Lab1
             return false;
         }
 
-        public string Process(string str)
+        /*public string Process(string str)
         {
-            string[] parts = str.Split(' ');
-            if(!(isNumber(parts[0]) && isOperator(parts[1]) && isNumber(parts[2])))
+            List<string> parts = str.Split(' ').ToList<string>();
+            string result;
+            while(parts.Count > 1)
             {
-                return "E";
-            } else
-            {
-                return calculate(parts[1], parts[0], parts[2], 4);
+                if(!(isNumber(parts[0]) && isOperator(parts[1]) && isNumber(parts[2])))
+                {
+                    return "E";
+                } else
+                {
+                    result = calculate(parts[1], parts[0], parts[2], 4);
+                    parts.RemoveRange(0, 3);
+                    parts.Insert(0, result);
+                }
             }
-
-        }
-        public string unaryCalculate(string operate, string operand, int maxOutputSize = 8)
+            return parts[0];
+        }*/
+        public string unaryCalculate(string operate, string operand, int maxOutputSize=8)
         {
             switch (operate)
             {
@@ -62,7 +69,7 @@ namespace CPE200Lab1
                         return result.ToString("N" + remainLength);
                     }
                 case "1/x":
-                    if(operand != "0")
+                    if (operand != "0")
                     {
                         double result;
                         string[] parts;
@@ -86,7 +93,7 @@ namespace CPE200Lab1
             return "E";
         }
 
-        public string calculate(string operate, string firstOperand, string secondOperand, int maxOutputSize = 8)
+        public string calculate(string operate, string firstOperand, string secondOperand, int maxOutputSize=8)
         {
             switch (operate)
             {
